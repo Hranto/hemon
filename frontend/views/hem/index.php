@@ -30,7 +30,7 @@ $this->title = 'My Yii Application';
                     ?>
                 </p>
                 <p>
-                    <a class="btn" href="#"><?php echo Yii::t('app', 'Read more'); ?></a>
+                    <a class="btn" href="/news?id=<?php echo $news->id ?>"><?php echo Yii::t('app', 'Read more'); ?></a>
                 </p>
             </div>
         <?php } ?>
