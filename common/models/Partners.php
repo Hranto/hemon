@@ -37,7 +37,7 @@ class Partners extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['image', 'title_en', 'title_ru', 'title_am', 'description_en', 'description_ru', 'description_am', 'projects_en', 'projects_ru', 'projects_am'], 'required'],
+            [['image', 'title_en', 'title_ru', 'title_am', 'description_en', 'description_ru', 'description_am', 'projects_en', 'projects_ru', 'projects_am', 'active'], 'required'],
             [['title_en', 'title_ru', 'title_am', 'description_en', 'description_ru', 'description_am', 'projects_en', 'projects_ru', 'projects_am'], 'string'],
             [['created_date', 'updated_date'], 'safe'],
             [['image'], 'string', 'max' => 255]
@@ -63,6 +63,7 @@ class Partners extends \yii\db\ActiveRecord
             'projects_en' => Yii::t('app', 'Projects En'),
             'projects_ru' => Yii::t('app', 'Projects Ru'),
             'projects_am' => Yii::t('app', 'Projects Am'),
+            'active' => Yii::t('app', 'Active'),
         ];
     }
 

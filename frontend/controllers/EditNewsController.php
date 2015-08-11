@@ -3,16 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use common\models\Projects;
-use common\models\ProjectsSearch;
-use frontend\controllers\AdminController;
+use common\models\news;
+use common\models\NewsSearch;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ProjectsController implements the CRUD actions for Projects model.
+ * NewsController implements the CRUD actions for news model.
  */
-class ProjectsController extends AdminController
+class EditNewsController extends Controller
 {
     public function behaviors()
     {
@@ -27,12 +27,12 @@ class ProjectsController extends AdminController
     }
 
     /**
-     * Lists all Projects models.
+     * Lists all news models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ProjectsSearch();
+        $searchModel = new NewsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,7 +42,7 @@ class ProjectsController extends AdminController
     }
 
     /**
-     * Displays a single Projects model.
+     * Displays a single news model.
      * @param integer $id
      * @return mixed
      */
@@ -54,15 +54,38 @@ class ProjectsController extends AdminController
     }
 
     /**
-     * Creates a new Projects model.
+     * Creates a new news model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
-    {
-        $model = new Projects();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    {   
+        $model = new news();
+        $model->active=1;
+        if ($model->load(Yii::$app->request->post()) ) { 
+            $image = $model->uploadImage(); //var_dump($image); exit;
+            $images = $model->uploadImages(); 
+            $attachments = $model->uploadFiles(); 
+            if ($model->save()) {
+                // upload only if valid uploaded file instance found
+                if ($image !== false) {
+                    $path = $model->getImageFile($image); 
+                    $image->saveAs($path);
+                }
+                if ($images !== false) {
+                    foreach ($images as $img) {
+                        $path = $model->getImageFile($img); 
+                        //var_dump($path); exit;
+                        $img->saveAs($path);
+                    }
+                }
+                if ($attachments !== false) {
+                    foreach ($attachments as $attachment) {
+                        $path = $model->getAttachmentFile($attachment); 
+                        $attachment->saveAs($path);
+                    }
+                }
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -72,7 +95,7 @@ class ProjectsController extends AdminController
     }
 
     /**
-     * Updates an existing Projects model.
+     * Updates an existing news model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,7 +114,7 @@ class ProjectsController extends AdminController
     }
 
     /**
-     * Deletes an existing Projects model.
+     * Deletes an existing news model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -104,15 +127,15 @@ class ProjectsController extends AdminController
     }
 
     /**
-     * Finds the Projects model based on its primary key value.
+     * Finds the news model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Projects the loaded model
+     * @return news the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Projects::findOne($id)) !== null) {
+        if (($model = news::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -18,7 +18,7 @@ class ProjectsSearch extends Projects
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'active'], 'integer'],
             [['image', 'title_en', 'title_ru', 'title_am', 'description_en', 'description_ru', 'description_am', 'created_date', 'updated_date', 'images', 'attachment'], 'safe'],
         ];
     }
@@ -59,6 +59,7 @@ class ProjectsSearch extends Projects
             'id' => $this->id,
             'created_date' => $this->created_date,
             'updated_date' => $this->updated_date,
+            'active' => $this->active,
         ]);
 
         $query->andFilterWhere(['like', 'image', $this->image])

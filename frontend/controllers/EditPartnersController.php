@@ -10,9 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PartnersController implements the CRUD actions for Partners model.
+ * EditPartnersController implements the CRUD actions for Partners model.
  */
-class PartnersController extends AdminController
+class EditPartnersController extends AdminController
 {
     public function behaviors()
     {

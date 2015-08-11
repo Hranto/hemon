@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Slider */
+/* @var $model common\models\Partners */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Sliders'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Partners'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="slider-view">
+<div class="partners-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -38,6 +38,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'description_am:ntext',
             'created_date',
             'updated_date',
+            'projects_en:ntext',
+            'projects_ru:ntext',
+            'projects_am:ntext',
             'active',
         ],
     ]) ?>

@@ -1,5 +1,6 @@
 <?php
 /* @var $this yii\web\View */
+use yii\helpers\Json;
 $language = Yii::$app->language;
 $this->title = 'My Yii Application';
 ?>
@@ -22,7 +23,25 @@ $this->title = 'My Yii Application';
                         ?>
                     </p>
 
-                </div>            
+                </div>   
+                <div>
+                    <?php if(!empty($news->images)) {
+                        $images = json_decode($news->images);
+                        foreach ($images as $img) { ?>
+                            <img alt="Bootstrap Image Preview" src="<?php echo Yii::$app->params['uploadUrl'] . 'images/' . $img; ?>" width='150px' height='100px'>
+                    <?php } 
+                        }
+                    ?>
+                </div>    
+                <div>
+                    <?php if(!empty($news->attachment)) {
+                        $attachments = json_decode($news->attachment);
+                        foreach ($attachments as $attachment) { ?>
+                        <a class="btn" href="<?php echo Yii::$app->params['uploadUrl'] . 'files/' . $attachment; ?>"><?php echo Yii::t('app', 'Read more'); ?></a>
+                    <?php } 
+                        }
+                    ?>
+                </div>       
         </div>
 
         <div class="row">

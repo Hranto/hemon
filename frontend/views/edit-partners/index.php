@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'projects_en:ntext',
             // 'projects_ru:ntext',
             // 'projects_am:ntext',
+            // 'active',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

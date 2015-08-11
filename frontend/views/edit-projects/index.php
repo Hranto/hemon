@@ -37,6 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'updated_date',
             // 'images:ntext',
             // 'attachment',
+            // 'active',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

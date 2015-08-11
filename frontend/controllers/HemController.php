@@ -14,9 +14,11 @@ use frontend\controllers\BaseController;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\News;
+use common\models\NewsQuery;
 use common\models\Team;
 use common\models\Projects;
 use common\models\Partners;
+use yii\data\Pagination;
 /**
  * Site controller
  */
@@ -71,9 +73,15 @@ class HemController extends BaseController
 
     public function actionIndex()
     {   
-        $newses = News::find()->all();
+
+        $count = NewsQuery::getNewsesAndProjectsCount(); 
+        $pages = new Pagination(['totalCount' => $count['count'], 'forcePageParam' => false, 'pageSizeParam' => false, 'defaultPageSize' => 1]);
+        //var_dump($pages); exit;
+        $newses = NewsQuery::getNewsesAndProjects($pages->offset, $pages->limit);
+
         return $this->render('index', [
-            'newses' => $newses
+            'newses' => $newses,
+             'pages' => $pages
         ]);
     }
 

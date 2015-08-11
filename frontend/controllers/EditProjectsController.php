@@ -3,16 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use common\models\Team;
-use common\models\TeamSearch;
+use common\models\Projects;
+use common\models\ProjectsSearch;
 use frontend\controllers\AdminController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TeamController implements the CRUD actions for Team model.
+ * EditProjectsController implements the CRUD actions for Projects model.
  */
-class TeamController extends AdminController
+class EditProjectsController extends AdminController
 {
     public function behaviors()
     {
@@ -27,12 +27,12 @@ class TeamController extends AdminController
     }
 
     /**
-     * Lists all Team models.
+     * Lists all Projects models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new TeamSearch();
+        $searchModel = new ProjectsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,7 +42,7 @@ class TeamController extends AdminController
     }
 
     /**
-     * Displays a single Team model.
+     * Displays a single Projects model.
      * @param integer $id
      * @return mixed
      */
@@ -54,13 +54,13 @@ class TeamController extends AdminController
     }
 
     /**
-     * Creates a new Team model.
+     * Creates a new Projects model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Team();
+        $model = new Projects();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -72,7 +72,7 @@ class TeamController extends AdminController
     }
 
     /**
-     * Updates an existing Team model.
+     * Updates an existing Projects model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,7 +91,7 @@ class TeamController extends AdminController
     }
 
     /**
-     * Deletes an existing Team model.
+     * Deletes an existing Projects model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -104,15 +104,15 @@ class TeamController extends AdminController
     }
 
     /**
-     * Finds the Team model based on its primary key value.
+     * Finds the Projects model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Team the loaded model
+     * @return Projects the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Team::findOne($id)) !== null) {
+        if (($model = Projects::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

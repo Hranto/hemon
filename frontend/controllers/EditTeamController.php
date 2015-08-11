@@ -3,16 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use common\models\news;
-use common\models\NewsSearch;
-use yii\web\Controller;
+use common\models\Team;
+use common\models\TeamSearch;
+use frontend\controllers\AdminController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * NewsController implements the CRUD actions for news model.
+ * EditTeamController implements the CRUD actions for Team model.
  */
-class NewsController extends Controller
+class EditTeamController extends AdminController
 {
     public function behaviors()
     {
@@ -27,12 +27,12 @@ class NewsController extends Controller
     }
 
     /**
-     * Lists all news models.
+     * Lists all Team models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new NewsSearch();
+        $searchModel = new TeamSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,7 +42,7 @@ class NewsController extends Controller
     }
 
     /**
-     * Displays a single news model.
+     * Displays a single Team model.
      * @param integer $id
      * @return mixed
      */
@@ -54,24 +54,15 @@ class NewsController extends Controller
     }
 
     /**
-     * Creates a new news model.
+     * Creates a new Team model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
-    {   
+    {
+        $model = new Team();
 
-        $model = new news();
-       
-        if ($model->load(Yii::$app->request->post()) ) { 
-            $image = $model->uploadImage(); 
-            if ($model->save()) {
-                // upload only if valid uploaded file instance found
-                if ($image !== false) {
-                    $path = $model->getImageFile(); 
-                    $image->saveAs($path);
-                }
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -81,7 +72,7 @@ class NewsController extends Controller
     }
 
     /**
-     * Updates an existing news model.
+     * Updates an existing Team model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -100,7 +91,7 @@ class NewsController extends Controller
     }
 
     /**
-     * Deletes an existing news model.
+     * Deletes an existing Team model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -113,15 +104,15 @@ class NewsController extends Controller
     }
 
     /**
-     * Finds the news model based on its primary key value.
+     * Finds the Team model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return news the loaded model
+     * @return Team the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = news::findOne($id)) !== null) {
+        if (($model = Team::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

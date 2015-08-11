@@ -1,7 +1,7 @@
 <?php
 
 namespace common\models;
-
+use Yii;
 /**
  * This is the ActiveQuery class for [[News]].
  *
@@ -31,5 +31,23 @@ class NewsQuery extends \yii\db\ActiveQuery
     public function one($db = null)
     {
         return parent::one($db);
+    }
+
+    public static function getNewsesAndProjects($offset=null, $limit=null)
+    {
+        $sql = 'SELECT * FROM (SELECT * FROM `projects` UNION SELECT * FROM `news` WHERE active = 1) as tab
+                ORDER BY tab.created_date desc';
+        if(isset($offset) && isset($limit)){
+            $sql .= " LIMIT $offset,$limit";
+        }
+
+        return Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    public static function getNewsesAndProjectsCount()
+    {
+        $sql = 'SELECT count(*) as count FROM (SELECT * FROM `projects` UNION SELECT * FROM `news` WHERE active = 1) as tab
+                ORDER BY tab.created_date desc';
+        return Yii::$app->db->createCommand($sql)->queryOne();
     }
 }

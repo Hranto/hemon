@@ -18,7 +18,7 @@ class PartnersSearch extends Partners
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'active'], 'integer'],
             [['image', 'title_en', 'title_ru', 'title_am', 'description_en', 'description_ru', 'description_am', 'created_date', 'updated_date', 'projects_en', 'projects_ru', 'projects_am'], 'safe'],
         ];
     }
@@ -59,6 +59,7 @@ class PartnersSearch extends Partners
             'id' => $this->id,
             'created_date' => $this->created_date,
             'updated_date' => $this->updated_date,
+            'active' => $this->active,
         ]);
 
         $query->andFilterWhere(['like', 'image', $this->image])
