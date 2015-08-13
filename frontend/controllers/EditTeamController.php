@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use common\models\Team;
 use common\models\TeamSearch;
+use common\models\Upload;
 use frontend\controllers\AdminController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -61,8 +62,15 @@ class EditTeamController extends AdminController
     public function actionCreate()
     {
         $model = new Team();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) { 
+            $image = Upload::uploadImage($model); //var_dump($image); exit;
+            if ($model->save()) {
+                // upload only if valid uploaded file instance found
+                if ($image !== false) {
+                    $path = Upload::getImageFile($image); 
+                    $image->saveAs($path);
+                }
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use common\models\news;
 use common\models\NewsSearch;
+use common\models\Upload;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -63,25 +64,25 @@ class EditNewsController extends Controller
         $model = new news();
         $model->active=1;
         if ($model->load(Yii::$app->request->post()) ) { 
-            $image = $model->uploadImage(); //var_dump($image); exit;
-            $images = $model->uploadImages(); 
-            $attachments = $model->uploadFiles(); 
+            $image = Upload::uploadImage($model); //var_dump($image); exit;
+            $images = Upload::uploadImages($model); 
+            $attachments = Upload::uploadFiles($model); 
             if ($model->save()) {
                 // upload only if valid uploaded file instance found
                 if ($image !== false) {
-                    $path = $model->getImageFile($image); 
+                    $path = Upload::getImageFile($image); 
                     $image->saveAs($path);
                 }
                 if ($images !== false) {
                     foreach ($images as $img) {
-                        $path = $model->getImageFile($img); 
+                        $path = Upload::getImageFile($img); 
                         //var_dump($path); exit;
                         $img->saveAs($path);
                     }
                 }
                 if ($attachments !== false) {
                     foreach ($attachments as $attachment) {
-                        $path = $model->getAttachmentFile($attachment); 
+                        $path = Upload::getAttachmentFile($attachment); 
                         $attachment->saveAs($path);
                     }
                 }

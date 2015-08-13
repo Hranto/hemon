@@ -21,9 +21,10 @@ class ContactForm extends Model
     {
         return [
             // name, email, subject and body are required
-            [['name', 'email', 'body'], 'required'],
+            [['name', 'email', 'body'], 'required', 'message'=>'',],
+            //[['name'], ],
             // email has to be a valid email address
-            ['email', 'email'],
+            ['email', 'email' ],
             // verifyCode needs to be entered correctly
             // ['verifyCode', 'captcha'],
         ];

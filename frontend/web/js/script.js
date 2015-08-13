@@ -29,6 +29,24 @@ $("#news-image").change(function(){
     readURL(this);
 });
 
+$("#partners-image").change(function(){
+    readURL(this);
+});
+
+$("#team-image").change(function(){
+    readURL(this);
+});
+
+$("#slider-image").change(function(){
+    readURL(this);
+});
+
+$("#projects-image").change(function(){
+    readURL(this);
+});
 $("#news-images").change(function(){
+    readURLs(this);
+});
+$("#projects-images").change(function(){
     readURLs(this);
 });

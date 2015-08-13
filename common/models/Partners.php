@@ -40,7 +40,7 @@ class Partners extends \yii\db\ActiveRecord
             [['image', 'title_en', 'title_ru', 'title_am', 'description_en', 'description_ru', 'description_am', 'projects_en', 'projects_ru', 'projects_am', 'active'], 'required'],
             [['title_en', 'title_ru', 'title_am', 'description_en', 'description_ru', 'description_am', 'projects_en', 'projects_ru', 'projects_am'], 'string'],
             [['created_date', 'updated_date'], 'safe'],
-            [['image'], 'string', 'max' => 255]
+            [['image'], 'file', 'extensions' => 'jpg, gif, png'],
         ];
     }
 

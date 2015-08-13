@@ -40,7 +40,7 @@ class Team extends \yii\db\ActiveRecord
             [['image', 'name_en', 'name_ru', 'name_am', 'sname_en', 'sname_ru', 'sname_am', 'position_en', 'position_ru', 'position_am'], 'required'],
             [['name_en', 'name_ru', 'name_am', 'sname_en', 'sname_ru', 'sname_am', 'position_en', 'position_ru', 'position_am'], 'string'],
             [['created_date', 'updated_date'], 'safe'],
-            [['image'], 'string', 'max' => 255]
+            [['image'], 'file', 'extensions' => 'jpg, gif, png'],
         ];
     }
 

@@ -4,16 +4,18 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Projects */
+/* @var $model common\models\Slider */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="projects-form">
+<div class="slider-form">
 
     <?php $form = ActiveForm::begin([
         'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
-    <img id="general_prew" src="">
+    
+    <img id="general_prew" src="<?php if ($model->image) { echo Yii::$app->params['uploadUrl'] . 'images/' . $model->image; } ?>">
+    
     <?= $form->field($model, 'image')->fileInput(['accept' => "image/*"]) ?>
 
     <?= $form->field($model, 'title_en')->textarea(['rows' => 6]) ?>
@@ -31,12 +33,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'created_date')->textInput() ?>
 
     <?= $form->field($model, 'updated_date')->textInput() ?>
-
-    <div id='second_prew'></div>    
-
-    <?= $form->field($model, 'images[]')->fileInput(['multiple' => true, 'accept' => 'image/*'])  ?>
-    
-    <?= $form->field($model, 'attachment[]')->fileInput(['multiple' => true])  ?>
 
     <?= $form->field($model, 'active')->radioList([1 => 'Active', 0 => 'Passive']) ?>
 

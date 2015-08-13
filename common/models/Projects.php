@@ -36,10 +36,12 @@ class Projects extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['image', 'title_en', 'title_ru', 'title_am', 'description_en', 'description_ru', 'description_am'], 'required'],
+            [['image', 'title_en', 'title_ru', 'title_am', 'description_en', 'description_ru', 'description_am', 'active'], 'required'],
             [['title_en', 'title_ru', 'title_am', 'description_en', 'description_ru', 'description_am', 'images'], 'string'],
             [['created_date', 'updated_date'], 'safe'],
-            [['image', 'attachment'], 'string', 'max' => 255]
+            [['image'], 'file', 'extensions' => 'jpg, gif, png'],
+            [['images'], 'file', 'extensions' => 'jpg, gif, png', 'maxFiles' => 15], 
+            [['attachment'], 'file', 'maxFiles' => 10]
         ];
     }
 
@@ -61,6 +63,7 @@ class Projects extends \yii\db\ActiveRecord
             'updated_date' => Yii::t('app', 'Updated Date'),
             'images' => Yii::t('app', 'Images'),
             'attachment' => Yii::t('app', 'Attachment'),
+            'active' => Yii::t('app', 'Active'),
         ];
     }
 

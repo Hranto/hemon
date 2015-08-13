@@ -10,9 +10,13 @@ use yii\widgets\ActiveForm;
 
 <div class="team-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'options' => ['enctype' => 'multipart/form-data']
+    ]); ?>
 
-    <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
+    <img id="general_prew" src="">
+    
+    <?= $form->field($model, 'image')->fileInput(['accept' => "image/*"]) ?>
 
     <?= $form->field($model, 'name_en')->textarea(['rows' => 6]) ?>
 

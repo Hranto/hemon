@@ -3,17 +3,17 @@
 namespace frontend\controllers;
 
 use Yii;
-use common\models\Projects;
-use common\models\ProjectsSearch;
+use common\models\Slider;
+use common\models\SliderSearch;
 use common\models\Upload;
 use frontend\controllers\AdminController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * EditProjectsController implements the CRUD actions for Projects model.
+ * EditSliderController implements the CRUD actions for Slider model.
  */
-class EditProjectsController extends AdminController
+class EditSliderController extends AdminController
 {
     public function behaviors()
     {
@@ -28,12 +28,12 @@ class EditProjectsController extends AdminController
     }
 
     /**
-     * Lists all Projects models.
+     * Lists all Slider models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ProjectsSearch();
+        $searchModel = new SliderSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -43,7 +43,7 @@ class EditProjectsController extends AdminController
     }
 
     /**
-     * Displays a single Projects model.
+     * Displays a single Slider model.
      * @param integer $id
      * @return mixed
      */
@@ -55,36 +55,21 @@ class EditProjectsController extends AdminController
     }
 
     /**
-     * Creates a new Projects model.
+     * Creates a new Slider model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Projects();
+        $model = new Slider();
         $model->active=1;
         if ($model->load(Yii::$app->request->post()) ) { 
-            $image = Upload::uploadImage($model); //var_dump($image); exit;
-            $images = Upload::uploadImages($model); 
-            $attachments = Upload::uploadFiles($model); 
+            $image = Upload::uploadImage($model); 
             if ($model->save()) {
                 // upload only if valid uploaded file instance found
                 if ($image !== false) {
                     $path = Upload::getImageFile($image); 
                     $image->saveAs($path);
-                }
-                if ($images !== false) {
-                    foreach ($images as $img) {
-                        $path = Upload::getImageFile($img); 
-                        //var_dump($path); exit;
-                        $img->saveAs($path);
-                    }
-                }
-                if ($attachments !== false) {
-                    foreach ($attachments as $attachment) {
-                        $path = Upload::getAttachmentFile($attachment); 
-                        $attachment->saveAs($path);
-                    }
                 }
             }
             return $this->redirect(['view', 'id' => $model->id]);
@@ -96,16 +81,27 @@ class EditProjectsController extends AdminController
     }
 
     /**
-     * Updates an existing Projects model.
+     * Updates an existing Slider model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $model = $this->findModel($id); //var_dump($model->image); exit;
+        //var_dump($Yii::$app->request->post()); exit;
+        if ($model->load(Yii::$app->request->post()) ) { //var_dump($model->oldAttributes); exit;
+            $image = Upload::uploadImage($model); 
+            if (!$image) {
+                $model->image = $model->oldAttributes['image']; 
+            }
+            if ($model->save()) {
+                // upload only if valid uploaded file instance found
+                if ($image !== false) {
+                    $path = Upload::getImageFile($image); 
+                    $image->saveAs($path);
+                }
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -115,7 +111,7 @@ class EditProjectsController extends AdminController
     }
 
     /**
-     * Deletes an existing Projects model.
+     * Deletes an existing Slider model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -128,15 +124,15 @@ class EditProjectsController extends AdminController
     }
 
     /**
-     * Finds the Projects model based on its primary key value.
+     * Finds the Slider model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Projects the loaded model
+     * @return Slider the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Projects::findOne($id)) !== null) {
+        if (($model = Slider::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

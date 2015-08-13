@@ -10,9 +10,13 @@ use yii\widgets\ActiveForm;
 
 <div class="partners-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'options' => ['enctype' => 'multipart/form-data']
+    ]); ?>
 
-    <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
+    <img id="general_prew" src="">
+    
+    <?= $form->field($model, 'image')->fileInput(['accept' => "image/*"]) ?>
 
     <?= $form->field($model, 'title_en')->textarea(['rows' => 6]) ?>
 
@@ -36,7 +40,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'projects_am')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'active')->textInput() ?>
+    <?= $form->field($model, 'active')->radioList([1 => 'Active', 0 => 'Passive']) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -11,6 +11,10 @@ return [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
+
+                'login'=> 'hem/login',
+                '<language:(en|ru|am)>/login'=> 'hem/login',
+
                 'about'=> 'hem/about',
                 '<language:(en|ru|am)>/about'=> 'hem/about',
 
@@ -31,6 +35,9 @@ return [
 
                 'services'=> 'hem/services',
                 '<language:(en|ru|am)>/services'=> 'hem/services',
+
+                'project'=> 'hem/project',
+                '<language:(en|ru|am)>/project'=> 'hem/project',
 
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<language:(en|ru|am)>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',

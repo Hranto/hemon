@@ -87,9 +87,22 @@ class HemController extends BaseController
 
     public function actionProjects()
     {   
-        $projects = Projects::find()->all();
+        $pages = new Pagination(['totalCount' => Projects::find()->count(), 'forcePageParam' => false, 'pageSizeParam' => false, 'defaultPageSize' => 1]);
+        $projects = Projects::find()->offset($pages->offset)->limit($pages->limit)->all();
         return $this->render('projects', [
-            'projects' => $projects
+            'projects' => $projects,
+            'pages' => $pages
+        ]);
+    }
+
+    public function actionProject()
+    {   
+        $params = Yii::$app->request->get();
+        $project = Projects::find()->where(array('id'=>$params['id']))->one(); 
+        $other_projects = Projects::find()->limit(3)->all(); 
+        return $this->render('project', [
+            'project' => $project,
+            'other_projects' => $other_projects
         ]);
     }
 
