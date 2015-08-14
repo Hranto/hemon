@@ -7,16 +7,16 @@ use yii\captcha\Captcha;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\ContactForm */
 
-$this->title = 'Contact';
+$this->title = Yii::t('app', 'Contacts');
 ?>
 <div class="site-contact">
 
     <div class="row">
         <div class="col-lg-5">
             <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
-                <?= $form->field($model, 'name') ?>
-                <?= $form->field($model, 'email') ?>
-                <?= $form->field($model, 'body')->textArea(['rows' => 6]) ?>
+                <?= $form->field($model, 'name')->label(Yii::t('app', 'Name')) ?>
+                <?= $form->field($model, 'email')->label(Yii::t('app', 'Email')) ?>
+                <?= $form->field($model, 'body')->textArea(['rows' => 6])->label(Yii::t('app', 'Message')) ?>
                 <div class="form-group">
                     <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
                 </div>

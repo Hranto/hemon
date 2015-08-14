@@ -25,6 +25,16 @@ function readURLs(input) {
     }
 }
 
+function moreNews(element) { 
+    $.get('/hem/more-news?page='+element.attr('data-page')+'', function(response) { 
+        var json = JSON.parse(response); 
+        if(json.status == '1') {
+           $('#prew').append(json.html);
+           $("#more_news").attr('data-page', 3);
+        }
+    });
+}
+
 $("#news-image").change(function(){
     readURL(this);
 });
@@ -49,4 +59,8 @@ $("#news-images").change(function(){
 });
 $("#projects-images").change(function(){
     readURLs(this);
+});
+
+$("#more_news").click(function(){
+    moreNews($(this));
 });

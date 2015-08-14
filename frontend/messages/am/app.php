@@ -1,6 +1,6 @@
 <?php
 return [
-   'contacts'=>'կապ',
+   
     'UPCOMING PROJECTS'=>'ԱՌԱՋԻԿԱ ԾՐԱԳՐԵՐ',
     'SPECIAL THANKS TO'=>'Հատուկ շնորհակալություն',
     'ABOUT US'=>'Մեր մասին',
@@ -31,6 +31,17 @@ return [
     'Zip/Postal' => 'Փոստային ինդեքս',
     'Personal data' => 'Անձնական տվյալներ',
     'Caring people' =>'Աջակիցներ',
+
+    'News' => 'Նորություններ',
+    'Team'=>'Թիմ',
+    'Projects'=>'Նախագծեր',
+    'Contacts'=>'կապ',
+    'About us' => 'Մեր մասին',
+    'Message' => 'Հաղորդագրություն',
+
+    'en'=>'Eng',
+    'am'=>'Հայ',
+    'ru'=>'Rus',
 
     'I would like to remain anonymous'=>'անանուն նվիրատվություն',
     'Select an amount'=> 'Ընտրել գումարի չափը',

@@ -1,7 +1,7 @@
 <?php
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
-    'defaultRoute' => 'hem/index',
+    'defaultRoute' => '/hem/index',
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -11,6 +11,8 @@ return [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
+
+                '<language:(en|ru|am)>/'=>'/',
 
                 'login'=> 'hem/login',
                 '<language:(en|ru|am)>/login'=> 'hem/login',

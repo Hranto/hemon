@@ -19,6 +19,7 @@ use common\models\Team;
 use common\models\Projects;
 use common\models\Partners;
 use yii\data\Pagination;
+use frontend\helpers\Helper;
 /**
  * Site controller
  */
@@ -73,16 +74,31 @@ class HemController extends BaseController
 
     public function actionIndex()
     {   
-
-        $count = NewsQuery::getNewsesAndProjectsCount(); 
-        $pages = new Pagination(['totalCount' => $count['count'], 'forcePageParam' => false, 'pageSizeParam' => false, 'defaultPageSize' => 1]);
-        //var_dump($pages); exit;
-        $newses = NewsQuery::getNewsesAndProjects($pages->offset, $pages->limit);
+        //$count = NewsQuery::getNewsesAndProjectsCount(); 
+        //$pages = new Pagination(['totalCount' => $count['count'], 'forcePageParam' => false, 'pageSizeParam' => false, 'defaultPageSize' => 1]);
+        $offset = 0;
+        $limit = 6;
+        $newses = NewsQuery::getNewsesAndProjects($offset, $limit);
 
         return $this->render('index', [
             'newses' => $newses,
-             'pages' => $pages
+             //'pages' => $pages
         ]);
+    }
+
+    public function actionMoreNews()
+    {   
+
+        $count = NewsQuery::getNewsesAndProjectsCount(); 
+        $pages = new Pagination(['totalCount' => $count['count'], 'forcePageParam' => false, 'pageSizeParam' => false, 'defaultPageSize' => 1]);
+
+        $newses = NewsQuery::getNewsesAndProjects($pages->offset, $pages->limit);
+        $html = Helper::ShowNews($newses); 
+        $array = array(
+            'status' => 1,
+            'html' => $html,
+        );
+        echo json_encode($array);
     }
 
     public function actionProjects()
@@ -156,7 +172,7 @@ class HemController extends BaseController
         return $this->goHome();
     }
 
-    public function actionContact()
+    public function actionContacts()
     {
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -231,4 +247,5 @@ class HemController extends BaseController
             'model' => $model,
         ]);
     }
+
 }

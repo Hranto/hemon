@@ -5,7 +5,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use frontend\widgets\Alert;
-
+use frontend\Controllers\BaseController;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
@@ -27,15 +27,17 @@ AppAsset::register($this);
         <?php
             NavBar::begin([
                 'brandLabel' => '<img src="/static/logo/logo.png">',
-                'brandUrl' => Yii::$app->homeUrl,
+                'brandUrl' => '/'.Yii::$app->language.'',
                 'options' => [
-                    'class' => 'navbar-inverse navbar-fixed-top',
+                    'class' => 'navbar-default navbar-fixed-top',
                 ],
             ]);
             $menuItems = [
-                ['label' => 'News', 'url' => ['/hem/index']],
-                ['label' => 'About Us', 'url' => ['/hem/about']],
-                ['label' => 'Contact', 'url' => ['/hem/contact']],
+                ['label' => Yii::t('app', 'News'), 'url' => ['/'.Yii::$app->language.'']],
+                ['label' => Yii::t('app', 'About us'), 'url' => ['/'.Yii::$app->language.'/about']],
+                ['label' => Yii::t('app', 'Contacts'), 'url' => ['/'.Yii::$app->language.'/contacts']], 
+                ['label' => Yii::t('app', 'Projects'), 'url' => ['/'.Yii::$app->language.'/projects']], 
+                ['label' => Yii::t('app', 'Team'), 'url' => ['/'.Yii::$app->language.'/team']],  
             ];
             if (Yii::$app->user->isGuest) {
                 $menuItems[] = ['label' => 'Signup', 'url' => ['/hem/signup']];
@@ -46,7 +48,31 @@ AppAsset::register($this);
                     'url' => ['/hem/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ];
+            } 
+
+            if( Yii::$app->language == 'en' ){
+                $menuItems[] = ['label' => Yii::t('app', ''.Yii::$app->language.''), 
+                    'items' => [
+                        ['label' => 'Arm', 'url' => [BaseController::createLanguageUrl('am')]],
+                        ['label' => 'Rus', 'url' => [BaseController::createLanguageUrl('ru')]],  
+                    ],
+                ];
+            } elseif ( Yii::$app->language == 'ru' ) {
+                $menuItems[] = ['label' => Yii::t('app', ''.Yii::$app->language.''), 
+                    'items' => [
+                        ['label' => 'Arm', 'url' => [BaseController::createLanguageUrl('am')]],
+                        ['label' => 'Eng', 'url' => [BaseController::createLanguageUrl('en')]],
+                    ],
+                ];
+            } else {
+                $menuItems[] = ['label' => Yii::t('app', ''.Yii::$app->language.''), 
+                    'items' => [
+                        ['label' => 'Rus', 'url' => [BaseController::createLanguageUrl('ru')]],  
+                        ['label' => 'Eng', 'url' => [BaseController::createLanguageUrl('en')]],
+                    ],
+                ];
             }
+
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => $menuItems,

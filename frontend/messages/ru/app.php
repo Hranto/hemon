@@ -1,11 +1,15 @@
 <?php
 return [
-   'contacts'=>'связь',
-    'ABOUT US'=>'О нас',
-    'OUR AIM IS'=>'Наша цель',
-    'Upcoming'=>'Предстоящие проекты',
-    'SPONSORS'=>'Спонсоры',
-    'Donate'=>'Пожертвовать',
-    'title'=>'Donate',
-    'Read more'=>'Читать далее...',
+    'Read more' => 'Читать далее...',
+    'en' => 'Eng',
+    'am' => 'Arm',
+    'ru' => 'Рус',
+    'News' => 'Новости',
+    'Team' =>'Команда',
+    'Projects' => 'Проэкты',
+    'Contacts' => 'Связь',
+    'About us' => 'О нас',
+    'Name' => 'Имя',
+    'Email' => 'Эл. почта',
+    'Message' => 'Сообщение',
 ];

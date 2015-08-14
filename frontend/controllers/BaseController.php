@@ -14,4 +14,20 @@ class BaseController extends \yii\web\Controller
 			Yii::$app->language = Yii::$app->params['default_language']; 
 		}
 	}
+
+	    /**
+     * Create language urls
+     *
+     * @param $language
+     * @return mixed|string
+     */
+    public static function createLanguageUrl($language){
+        if(Yii::$app->request->url == '/' || Yii::$app->request->url == '/' . Yii::$app->language) {
+            return '/' . $language;
+        } elseif(strpos(Yii::$app->request->url, '/' . Yii::$app->language . '/') !== false){
+            return str_replace('/' . Yii::$app->language . '/', '/' . $language . '/', Yii::$app->request->url);
+        } else{
+            return '/' . $language . '/' . substr(Yii::$app->request->url, 1);
+        }
+    }
 }

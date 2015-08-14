@@ -22,11 +22,23 @@ return [
     'Address' => 'Address',
     'State' => 'State',
     'Zip/Postal' => 'Zip/Postal',
-
+    
     'personal data'=>'personal data',
     'Select an amount'=>'Select an amount',
     'Use my facebook photo'=>'Use my facebook photo',
     'or send SMS'=>'or send SMS',
     'title'=>'Donate',
     'fullAddress' => 'Armenia, Yerevan, Komitas 49/2, 5 floor, 503 room',
+
+    'en' => 'Eng',
+    'am' => 'Arm',
+    'ru' => 'Rus',
+
+    'News' => 'NEWS',
+    'Team' =>'TEAM',
+    'Projects' => 'PROJECTS',
+    'Contacts' => 'CONTACTS',
+    'About us' => 'ABOUT US',
+
+    'Message' => 'Message',
 ];
