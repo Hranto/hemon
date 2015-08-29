@@ -88,9 +88,8 @@ class EditSliderController extends AdminController
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id); //var_dump($model->image); exit;
-        //var_dump($Yii::$app->request->post()); exit;
-        if ($model->load(Yii::$app->request->post()) ) { //var_dump($model->oldAttributes); exit;
+        $model = $this->findModel($id); 
+        if ($model->load(Yii::$app->request->post()) ) { 
             $image = Upload::uploadImage($model); 
             if (!$image) {
                 $model->image = $model->oldAttributes['image']; 

@@ -36,7 +36,7 @@ class Slider extends \yii\db\ActiveRecord
     {
         return [
             [['title_en', 'title_ru', 'title_am', 'description_en', 'description_ru', 'description_am', 'active'], 'required'],
-            [['title_en', 'title_ru', 'title_am', 'description_en', 'description_ru', 'description_am', 'active'], 'string'],
+            [['title_en', 'title_ru', 'title_am', 'description_en', 'description_ru', 'description_am'], 'string'],
             [['created_date', 'updated_date'], 'safe'],
             [['image'], 'file', 'extensions' => 'jpg, gif, png'],
         ];

@@ -2,6 +2,7 @@
 /* @var $this yii\web\View */
 use frontend\widgets\MySlider;
 use yii\widgets\LinkPager;
+use frontend\assets\AppAsset;
 $language = Yii::$app->language;
 $this->title = 'Admin';
 ?>

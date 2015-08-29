@@ -12,25 +12,56 @@ function readURL(input) {
 }
 
 function readURLs(input) {
-	console.log(input.files.length); 
     if (input.files.length) {
-        $.each( input.files, function( key, value ) { console.log(value);
+        var html;
+        $.each( input.files, function( key, value ) { 
 		    var reader = new FileReader();
-	        reader.onload = function (e) { console.log(e.target.result);
-	        	$("#second_prew").append('<img id="second_prew_'+key+'" src="'+e.target.result+'">')
-            	// $('#general_prew').attr('src', e.target.result);
+	        reader.onload = function (e) {              
+                if(key == 0){
+                    html = '<div class="new_images_prew"><img id="second_prew_'+key+'" src="'+e.target.result+'" class="img-thumbnail" width="200px">'; 
+                } else {
+                    html = html+'<img id="second_prew_'+key+'" src="'+e.target.result+'" class="img-thumbnail" width="200px">'; 
+                }
+                if(input.files.length-1 == key) {
+                    html = html+'<div class="btn remove btn-danger new_images">Remove</div></div>'; 
+                    $("#second_prew").append(html);  
+                }
         	}
         	reader.readAsDataURL(value);
-		});      
+		});   
+    }
+}
+
+function showFiles(input) {
+    if (input.files.length) {
+        var html;
+        $.each( input.files, function( key, value ) {
+                                
+            if(key == 0){
+                html = '<div class="new_files_prew"><div id="file_prew_'+key+'">'+value.name+'</div>'; 
+            } else {
+                html = html+'<div id="file_prew_'+key+'">'+value.name+'</div>'; 
+            }
+            if(input.files.length-1 == key) {
+                html = html+'<div class="btn remove new_files">Remove</div></div>'; 
+                $("#files_prew").append(html);  
+            }   
+        });   
     }
 }
 
 function moreNews(element) { 
     $.get('/hem/more-news?page='+element.attr('data-page')+'', function(response) { 
-        var json = JSON.parse(response); 
+        var json = JSON.parse(response);  
         if(json.status == '1') {
            $('#prew').append(json.html);
-           $("#more_news").attr('data-page', 3);
+           var page = $("#more_news").attr('data-page');
+           page ++;
+           $("#more_news").attr('data-page', page);
+        } else {
+            if(json.status == '2') {
+               $("#more_news").remove();
+            }
         }
     });
 }
@@ -55,12 +86,41 @@ $("#projects-image").change(function(){
     readURL(this);
 });
 $("#news-images").change(function(){
+    $('.new_images_prew').remove();
     readURLs(this);
 });
+$("#news-attachment").change(function(){
+    $('.new_files_prew').remove();
+    showFiles(this);
+});
+
 $("#projects-images").change(function(){
+    $('.new_images_prew').remove();
     readURLs(this);
+});
+
+$("#projects-attachment").change(function(){
+    $('.new_files_prew').remove();
+    showFiles(this);
 });
 
 $("#more_news").click(function(){
     moreNews($(this));
 });
+
+$(document).on('click', ".remove", function(){ 
+    if($(this).hasClass('new_images')){
+        $('[name="News[images][]"]').val(null);
+        $('[name="Projects[images][]"]').val(null);
+    }
+    if($(this).hasClass('new_files')){
+        $('[name="News[attachment][]"]').val(null);
+        $('[name="Projects[attachment][]"]').val(null);
+    }
+    $(this).parent().remove();
+});
+
+$(function(){
+    $('#carousel-106546').carousel({
+         interval: 3000});
+})

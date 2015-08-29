@@ -1,35 +1,48 @@
 <?php
 /* @var $this yii\web\View */
 $language = Yii::$app->language;
-$this->title = 'My Yii Application';
+$this->title = Yii::t('app', 'Partners');
 ?>
-<div class="site-index"><?php //var_dump($news); exit; ?>
-    <div class="container-fluid">
+<section>
+    <div class="container">
         <div class="row">
+            <div class="col-md-12 text-center">
+                <h2 class="page-title"><?php echo Yii::t('app', 'partners'); ?></h2>
+            </div>
+            <div class="clear-block"></div>
             <?php   foreach ($partners as $partner) { ?>
+            <div class="col-md-12">
                 <div class="col-md-4">
-                    <img alt="Bootstrap Image Preview" src="<?php echo Yii::$app->params['uploadUrl'] . 'images/' . $partner->image; ?>" width='300px' height='200px'>
-                    <h2>
-                        <?php $title = 'title_'.$language; 
-                            echo $partner->$title;
-                        ?>
-                        <?php //echo Yii::t('app', 'contacts'); ?>
-                    </h2>
-                    <p>
-                        <?php $description = 'description_'.$language; 
-                            echo $partner->$description;
-                        ?>
-                    </p>
-                    <p>
-                        <?php $projects = 'projects_'.$language; 
-                            echo $partner->$projects;
-                        ?>
-                    </p>
-                    <p>
-                        <a class="btn" href="/news?id=<?php echo $partner->id; ?>"><?php echo Yii::t('app', 'Read more'); ?></a>
-                    </p>
+                    <div class="partner-logo-container">
+                         <img src="<?php echo Yii::$app->params['uploadUrl'] . 'images/' . $partner->image; ?>">
+                    </div>
                 </div>
-            <?php } ?>   
+                <div class="col-md-8">
+                    <div class="partnership-info">
+                        <p class="company-name">
+                            <?php 
+                                $title = 'title_'.$language; 
+                                echo $partner->$title;
+                            ?>
+                        </p>
+                        <p class="partner-description">
+                            <?php 
+                                $description = 'description_'.$language; 
+                                echo $partner->$description;
+                            ?>
+                        </p>
+                        <p class="project">Our projects</p>
+                        <p class="short-info">
+                            <?php 
+                                $projects = 'projects_'.$language; 
+                                echo $partner->$projects;
+                            ?>
+                            <span><?php echo Yii::t('app', 'Read more'); ?></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        <?php } ?> 
         </div>
     </div>
-</div>           
+</section>         

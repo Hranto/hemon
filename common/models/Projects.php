@@ -36,9 +36,9 @@ class Projects extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['image', 'title_en', 'title_ru', 'title_am', 'description_en', 'description_ru', 'description_am', 'active'], 'required'],
+            [['image', 'title_en', 'title_ru', 'title_am', 'description_en', 'description_ru', 'description_am', 'active', 'start_date'], 'required'],
             [['title_en', 'title_ru', 'title_am', 'description_en', 'description_ru', 'description_am', 'images'], 'string'],
-            [['created_date', 'updated_date'], 'safe'],
+            [['created_date', 'updated_date', 'end_date'], 'safe'],
             [['image'], 'file', 'extensions' => 'jpg, gif, png'],
             [['images'], 'file', 'extensions' => 'jpg, gif, png', 'maxFiles' => 15], 
             [['attachment'], 'file', 'maxFiles' => 10]
@@ -61,6 +61,8 @@ class Projects extends \yii\db\ActiveRecord
             'description_am' => Yii::t('app', 'Description Am'),
             'created_date' => Yii::t('app', 'Created Date'),
             'updated_date' => Yii::t('app', 'Updated Date'),
+            'start_date' => Yii::t('app', 'Start Date'),
+            'end_date' => Yii::t('app', 'End Date'),
             'images' => Yii::t('app', 'Images'),
             'attachment' => Yii::t('app', 'Attachment'),
             'active' => Yii::t('app', 'Active'),

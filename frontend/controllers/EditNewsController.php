@@ -64,9 +64,12 @@ class EditNewsController extends Controller
         $model = new news();
         $model->active=1;
         if ($model->load(Yii::$app->request->post()) ) { 
-            $image = Upload::uploadImage($model); //var_dump($image); exit;
-            $images = Upload::uploadImages($model); 
-            $attachments = Upload::uploadFiles($model); 
+            // echo '<pre>';
+            // var_dump($model->images); exit;
+            $image = Upload::uploadImage($model); //var_dump($image); //exit;
+            $images = Upload::uploadImages($model); //var_dump($images);
+            $attachments = Upload::uploadFiles($model); //var_dump($attachments); exit;
+            //var_dump($model);
             if ($model->save()) {
                 // upload only if valid uploaded file instance found
                 if ($image !== false) {
@@ -104,8 +107,53 @@ class EditNewsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $params = Yii::$app->request->post();
+        if(empty($params['updated_images'])) { $params['updated_images'] = array(); }
+        if(empty($params['updated_files'])) { $params['updated_files'] = array(); }
+        if ($model->load(Yii::$app->request->post()) ) { 
+            $image = Upload::uploadImage($model);
+            $images = Upload::uploadImages($model); 
+            $attachments = Upload::uploadFiles($model);
+            if (!$image) {
+                $model->image = $model->oldAttributes['image']; 
+            }
+            if (!$images) {
+                //if(!empty($params['updated_images'])) {
+                    $model->images = json_encode($params['updated_images']); 
+                // } else {
+                //     $model->images = '';
+                // }     
+            } else {
+                foreach ($images as $img) {
+                    $path = Upload::getImageFile($img); 
+                    $image_array[] = $img->name;
+                    $img->saveAs($path);
+                }
+                $model->images = json_encode(array_merge($params['updated_images'], $image_array));
+            }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if (!$attachments) {
+                //if(!empty($params['updated_files'])) {
+                    $model->attachment = json_encode($params['updated_files']); 
+                // } else {
+                //     $model->attachment = ''; 
+                // }
+                
+            } else {
+                foreach ($attachments as $attachment) {
+                    $path = Upload::getImageFile($attachment); 
+                    $attachment_array[] = $attachment->name;
+                    $attachment->saveAs($path);
+                }
+                $model->attachment = json_encode(array_merge($params['updated_files'], $attachment_array));
+            }
+            if ($model->save()) {
+                // upload only if valid uploaded file instance found
+                if ($image !== false) {
+                    $path = Upload::getImageFile($image); 
+                    $image->saveAs($path);
+                }
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

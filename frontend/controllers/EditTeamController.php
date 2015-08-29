@@ -63,7 +63,7 @@ class EditTeamController extends AdminController
     {
         $model = new Team();
         if ($model->load(Yii::$app->request->post()) ) { 
-            $image = Upload::uploadImage($model); //var_dump($image); exit;
+            $image = Upload::uploadImage($model); 
             if ($model->save()) {
                 // upload only if valid uploaded file instance found
                 if ($image !== false) {
@@ -89,7 +89,18 @@ class EditTeamController extends AdminController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) { 
+            $image = Upload::uploadImage($model);
+            if (!$image) {
+                $model->image = $model->oldAttributes['image']; 
+            }
+            if ($model->save()) {
+                // upload only if valid uploaded file instance found
+                if ($image !== false) {
+                    $path = Upload::getImageFile($image); 
+                    $image->saveAs($path);
+                }
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

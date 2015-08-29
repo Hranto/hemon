@@ -1,6 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 use yii\helpers\Json;
+use frontend\helpers\Helper;
 $language = Yii::$app->language;
 $this->title = 'My Yii Application';
 ?>
@@ -45,26 +46,7 @@ $this->title = 'My Yii Application';
         </div>
 
         <div class="row">
-        <?php   foreach ($other_projects as $other) { ?>
-            <div class="col-md-4">
-                <img alt="Bootstrap Image Preview" src="<?php echo Yii::$app->params['uploadUrl'] . 'images/' . $other->image; ?>" width='300px' height='200px'>
-                <h2>
-                    <?php $title = 'title_'.$language; 
-                        echo $other->$title;
-                    ?>
-                    <?php //echo Yii::t('app', 'contacts'); ?>
-                </h2>
-                <p>
-                    <?php $description = 'description_'.$language; 
-                        echo $other->$description;
-                    ?>
-                </p>
-                <p>
-                    <a class="btn" href="/project?id=<?php echo $other->id; ?>"><?php echo Yii::t('app', 'Read more'); ?></a>
-                </p>
-            </div>
-        <?php } ?>
-        
-    </div>
+            <?php  echo Helper::showProjects($other_projects);  ?>       
+        </div>
     </div>
 </div>           

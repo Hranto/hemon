@@ -18,13 +18,16 @@ use common\models\NewsQuery;
 use common\models\Team;
 use common\models\Projects;
 use common\models\Partners;
+use common\models\About;
 use yii\data\Pagination;
 use frontend\helpers\Helper;
+use yii\helpers\Json;
+use frontend\components\LangUrlManager;
 /**
  * Site controller
  */
 class HemController extends BaseController
-{
+{ 
     /**
      * @inheritdoc
      */
@@ -77,7 +80,7 @@ class HemController extends BaseController
         //$count = NewsQuery::getNewsesAndProjectsCount(); 
         //$pages = new Pagination(['totalCount' => $count['count'], 'forcePageParam' => false, 'pageSizeParam' => false, 'defaultPageSize' => 1]);
         $offset = 0;
-        $limit = 6;
+        $limit = 2;
         $newses = NewsQuery::getNewsesAndProjects($offset, $limit);
 
         return $this->render('index', [
@@ -88,22 +91,35 @@ class HemController extends BaseController
 
     public function actionMoreNews()
     {   
+        $page = Yii::$app->request->get('page');
+        $default_offset = 2;
+        $limit = 2;
+       
+        $offset = $default_offset + $page*$limit;
 
-        $count = NewsQuery::getNewsesAndProjectsCount(); 
-        $pages = new Pagination(['totalCount' => $count['count'], 'forcePageParam' => false, 'pageSizeParam' => false, 'defaultPageSize' => 1]);
-
-        $newses = NewsQuery::getNewsesAndProjects($pages->offset, $pages->limit);
-        $html = Helper::ShowNews($newses); 
-        $array = array(
-            'status' => 1,
-            'html' => $html,
-        );
-        echo json_encode($array);
+        $count = NewsQuery::getNewsesAndProjectsCount();
+        //var_dump($offset, $count); exit;
+         
+        if($offset >= $count['count']-1){
+            $array = array(
+                'status' => 2,
+            );
+        } else {
+            $newses = NewsQuery::getNewsesAndProjects($offset, $limit);
+            $html = Helper::ShowNews($newses); 
+            $array = array(
+                'status' => 1,
+                'html' => $html,
+            );
+        }
+   
+        echo Json::encode($array);
     }
 
     public function actionProjects()
     {   
-        $pages = new Pagination(['totalCount' => Projects::find()->count(), 'forcePageParam' => false, 'pageSizeParam' => false, 'defaultPageSize' => 1]);
+        $pages = new Pagination(['totalCount' => Projects::find()->count(), 'urlManager'=> new LangUrlManager, 'route'=>'/projects', 'forcePageParam' => true, 'pageSizeParam' => false, 'defaultPageSize' => 1]);
+        //$pages->createUrl(5, null, true);
         $projects = Projects::find()->offset($pages->offset)->limit($pages->limit)->all();
         return $this->render('projects', [
             'projects' => $projects,
@@ -119,6 +135,16 @@ class HemController extends BaseController
         return $this->render('project', [
             'project' => $project,
             'other_projects' => $other_projects
+        ]);
+    }
+
+    public function actionServices()
+    {   
+        $pages = new Pagination(['totalCount' => Projects::find()->count(), 'forcePageParam' => false, 'pageSizeParam' => false, 'defaultPageSize' => 1]);
+        $projects = Projects::find()->offset($pages->offset)->limit($pages->limit)->all();
+        return $this->render('services', [
+            'projects' => $projects,
+            'pages' => $pages
         ]);
     }
 
@@ -191,8 +217,11 @@ class HemController extends BaseController
     }
 
     public function actionAbout()
-    {
-        return $this->render('about');
+    {   
+        $about = About::find()->one(); //var_dump($about); exit;
+        return $this->render('about', [
+            'about' => $about,
+        ]);
     }
 
     public function actionSignup()

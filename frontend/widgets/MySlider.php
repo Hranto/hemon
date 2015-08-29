@@ -23,7 +23,8 @@ class MySlider extends Widget{
 
     public function run()
     {
-        $slides = Slider::find()->where(array('active'=>1))->all();
+        $slides = Slider::find()->where(['active'=>'1'])->all();
+        //var_dump($slides); exit;
         return $this->render('sliderView', [
             'slides' => $slides
         ]);

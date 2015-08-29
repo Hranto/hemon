@@ -65,6 +65,7 @@ class Upload extends Model
         //var_dump($images); exit;
         // if no image was uploaded abort the upload
         if (empty($images)) {
+            $model->images = '';
             return false;
         }
 
@@ -93,6 +94,7 @@ class Upload extends Model
         //var_dump($images); exit;
         // if no image was uploaded abort the upload
         if (empty($attachments)) {
+            $model->attachment = '';
             return false;
         }
 

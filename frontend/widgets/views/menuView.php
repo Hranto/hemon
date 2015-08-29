@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * @author VOLODYA AVETISYAN <volodya.avetisyan@gmail.com>
- * Date: 04/08/2015
- * Time: 13:54
- */
 ?>
 <nav class="menu">
     <ul>

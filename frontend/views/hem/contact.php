@@ -7,28 +7,63 @@ use yii\captcha\Captcha;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\ContactForm */
 
-$this->title = Yii::t('app', 'Contacts');
+$this->title = Yii::t('app', 'contacts');
 ?>
-<div class="site-contact">
-
-    <div class="row">
-        <div class="col-lg-5">
+<section class="contact-page">
+    <div class="container-fluid social-zone">
+      <div class="row text-center">
+        <h2 class="section-title"><?php echo Yii::t('app', 'Follow us'); ?></h2>
+        <div class="social-icons">
+          <a href="" class="icon-google-plus"></a>
+          <a href="" class="icon-youtube"></a>
+          <a href="" class="icon-twitter"></a>
+          <a href="" class="icon-linkedin"></a>
+          <a href="" class="icon-facebook"></a>
+         </div>
+      </div>
+    </div>
+    <div class="container form-info-block">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="text-center">
+            <h2 class="page-title"><?php echo Yii::t('app', 'contacts'); ?></h2>
+            <p class="company-name"><?php echo Yii::t('app', 'company name'); ?></p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 text-right address">
+          <?php echo Yii::t('app', 'address'); ?>
+        </div>
+        <div class="col-md-6">
+          <p><?php echo Yii::t('app', 'tel'); ?><br><?php echo Yii::t('app', 'email'); ?></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="contact-form">
             <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
-                <?= $form->field($model, 'name')->label(Yii::t('app', 'Name')) ?>
-                <?= $form->field($model, 'email')->label(Yii::t('app', 'Email')) ?>
-                <?= $form->field($model, 'body')->textArea(['rows' => 6])->label(Yii::t('app', 'Message')) ?>
+                <?= $form->field($model, 'name')->textInput(['placeholder' => Yii::t('app', 'Name'), 'class' => 'pull-left'])->label(false) ?>
+                <?= $form->field($model, 'email')->textInput(['placeholder' => Yii::t('app', 'Email'), 'class' => 'pull-right'])->label(false) ?>
+                <div class="clear-block"></div>
+                <?= $form->field($model, 'body')->textArea(['placeholder' => Yii::t('app', 'Message'), 'resizable' => 'false'])->label(false) ?>
                 <div class="form-group">
-                    <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                    <?= Html::submitButton(Yii::t('app', 'send'), ['class' => 'send pull-right', 'name' => 'contact-button']) ?>
                 </div>
             <?php ActiveForm::end(); ?>
+          </div>
         </div>
+      </div>
     </div>
-
-    <div class="" style="">
-        <div id="map-canvas" style="width: 100%;height: 300px;"></div>
+  </section>
+  <section>
+    <div class="container-fluid">
+      <div class="row">
+          <div id="map-canvas" style="height: 300px;"></div>
+      </div>
     </div>
+  </section>
 
-</div>
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 
 <script>
@@ -37,6 +72,7 @@ $this->title = Yii::t('app', 'Contacts');
      var myLatlng = new google.maps.LatLng(40.2079261, 44.51627970000004);
      var mapOptions = {
       center: myLatlng,
+      scrollwheel: false,
       zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }

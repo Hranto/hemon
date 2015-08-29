@@ -14,21 +14,21 @@ use yii\widgets\ActiveForm;
         'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
     
-    <img id="general_prew" src="<?php if ($model->image) { echo Yii::$app->params['uploadUrl'] . 'images/' . $model->image; } ?>">
+    <img id="general_prew" src="<?php if ($model->image) { echo Yii::$app->params['uploadUrl'] . 'images/' . $model->image; } ?>" class="img-thumbnail" width="900px">
     
     <?= $form->field($model, 'image')->fileInput(['accept' => "image/*"]) ?>
 
-    <?= $form->field($model, 'title_en')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'title_en')->textarea(['rows' => 1]) ?>
 
-    <?= $form->field($model, 'title_ru')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'title_ru')->textarea(['rows' => 1]) ?>
 
-    <?= $form->field($model, 'title_am')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'title_am')->textarea(['rows' => 1]) ?>
 
-    <?= $form->field($model, 'description_en')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'description_en')->textarea(['rows' => 2]) ?>
 
-    <?= $form->field($model, 'description_ru')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'description_ru')->textarea(['rows' => 2]) ?>
 
-    <?= $form->field($model, 'description_am')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'description_am')->textarea(['rows' => 2]) ?>
 
     <?= $form->field($model, 'created_date')->textInput() ?>
 

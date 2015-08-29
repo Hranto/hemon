@@ -7,6 +7,7 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
         'urlManager' => [
+            //'class'=>'frontend\components\LangUrlManager',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'enableStrictParsing' => false,
@@ -31,6 +32,7 @@ return [
 
                 'projects'=> 'hem/projects',
                 '<language:(en|ru|am)>/projects'=> 'hem/projects',
+                '<language:(en|ru|am)>/projects/<page:\d+>'=> 'hem/projects',
 
                 'partners'=> 'hem/partners',
                 '<language:(en|ru|am)>/partners'=> 'hem/partners',
@@ -43,8 +45,13 @@ return [
 
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<language:(en|ru|am)>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+
+                '<controller:\w+>/<action:\w+>/<page:\d+>' => '<controller>/<action>',
+                '<language:(en|ru|am)>/<controller:\w+>/<action:\w+>/<page:\d+>' => '<controller>/<action>',
+
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<language:(en|ru|am)>/<controller:\w+>/<id:\d+>' => '<controller>/view',
+                
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 '<language:(en|ru|am)>/<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ],

@@ -14,15 +14,15 @@ use yii\widgets\ActiveForm;
         'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
 
-    <img id="general_prew" src="">
+    <img id="general_prew" src="<?php if ($model->image) { echo Yii::$app->params['uploadUrl'] . 'images/' . $model->image; } ?>"  class="img-thumbnail" width="300px">
     
     <?= $form->field($model, 'image')->fileInput(['accept' => "image/*"]) ?>
 
-    <?= $form->field($model, 'title_en')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'title_en')->textarea(['rows' => 1]) ?>
 
-    <?= $form->field($model, 'title_ru')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'title_ru')->textarea(['rows' => 1]) ?>
 
-    <?= $form->field($model, 'title_am')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'title_am')->textarea(['rows' => 1]) ?>
 
     <?= $form->field($model, 'description_en')->textarea(['rows' => 6]) ?>
 
@@ -34,11 +34,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'updated_date')->textInput() ?>
 
-    <?= $form->field($model, 'projects_en')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'projects_en')->textarea(['rows' => 4]) ?>
 
-    <?= $form->field($model, 'projects_ru')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'projects_ru')->textarea(['rows' => 4]) ?>
 
-    <?= $form->field($model, 'projects_am')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'projects_am')->textarea(['rows' => 4]) ?>
 
     <?= $form->field($model, 'active')->radioList([1 => 'Active', 0 => 'Passive']) ?>
 

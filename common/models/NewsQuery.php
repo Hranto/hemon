@@ -35,7 +35,7 @@ class NewsQuery extends \yii\db\ActiveQuery
 
     public static function getNewsesAndProjects($offset=null, $limit=null)
     {
-        $sql = 'SELECT * FROM (SELECT * FROM `projects` UNION SELECT * FROM `news` WHERE active = 1) as tab
+        $sql = 'SELECT * FROM (SELECT projects.*, "project" as type FROM `projects` UNION SELECT news.*, " " as start_date, " " as end_date, "news" as type FROM `news` WHERE active = 1) as tab
                 ORDER BY tab.created_date desc';
         if(isset($offset) && isset($limit)){
             $sql .= " LIMIT $offset,$limit";
@@ -46,7 +46,7 @@ class NewsQuery extends \yii\db\ActiveQuery
 
     public static function getNewsesAndProjectsCount()
     {
-        $sql = 'SELECT count(*) as count FROM (SELECT * FROM `projects` UNION SELECT * FROM `news` WHERE active = 1) as tab
+        $sql = 'SELECT count(*) as count FROM (SELECT * FROM `projects` UNION SELECT `news`.*, " " as start_date, " " as end_date FROM `news` WHERE active = 1) as tab
                 ORDER BY tab.created_date desc';
         return Yii::$app->db->createCommand($sql)->queryOne();
     }

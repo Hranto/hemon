@@ -1,37 +1,47 @@
 <?php
 /* @var $this yii\web\View */
 $language = Yii::$app->language;
-$this->title = 'My Yii Application';
+$this->title = Yii::t('app', 'Team');
 ?>
-<div class="site-index">
-
-   <div class="container-fluid">
-        <div class="row">  
-           <img alt="Carousel Bootstrap First" src="http://lorempixel.com/output/sports-q-c-1200-500-1.jpg">
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2 class="page-title"><?php echo Yii::t('app', 'our team'); ?></h2>
+            </div>
         </div>
         <div class="row">
-            <?php   foreach ($team as $member) { ?>
-                <div class="col-md-4">
-                    <img alt="Bootstrap Image Preview" src="<?php echo Yii::$app->params['uploadUrl'] . 'images/' . $member->image; ?>" width='300px' height='200px'>
-                    <h2>
-                        <?php $name = 'name_'.$language; 
-                            echo $member->$name;
-                        ?>
-                        <?php //echo Yii::t('app', 'contacts'); ?>
-                    </h2>
-                    <h2>
-                        <?php $sname = 'sname_'.$language; 
-                            echo $member->$sname;
-                        ?>
-                    </h2>
-                    <h2>
-                        <?php $position = 'position_'.$language; 
-                            echo $member->$position;
-                        ?>
-                    </h2>
+            <div class="col-md-12">
+                <div class="img-conatiner">
+                    <img src="/static/img/team-pic.png" class="img-responsive">
                 </div>
-            <?php } ?>
-            
+            </div>
+        </div>
+        <div class="row">
+        <?php   foreach ($team as $member) { ?>
+            <div class="col-md-3">
+                <div class="team-member">
+                    <img class="img-responsive" src="<?php echo Yii::$app->params['uploadUrl'] . 'images/' . $member->image; ?>" >
+                    <div class="main-wrapper text-center">
+                        <p class="member-name">
+                            <?php 
+                                $name = 'name_'.$language; 
+                                echo $member->$name.' ';
+                                $sname = 'sname_'.$language; 
+                                echo $member->$sname;
+                            ?>
+                        </p>
+                        <div class="divider"></div>
+                        <p class="member-position">
+                            <?php 
+                                $position = 'position_'.$language; 
+                                echo $member->$position;
+                            ?>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
         </div>
     </div>
-</div>           
+</section>       
